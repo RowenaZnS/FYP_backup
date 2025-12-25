@@ -20,7 +20,16 @@ from utils.utils_distributed_sampler import get_dist_info, worker_init_fn
 
 from .datasets import AgeGenderDataset, CelebADataset, RAFDataset, FGnetDataset, ExpressionDataset, LAPDataset
 from .samplers import SubsetRandomSampler
-from dataset import MXFaceDataset
+from torchvision.datasets import ImageFolder
+
+# MXFaceDataset is only needed for MXNet RecordIO format
+# Import it conditionally to avoid MXNet import errors when not using RecordIO
+try:
+    from dataset import MXFaceDataset
+    MXFACEDATASET_AVAILABLE = True
+except (ImportError, AttributeError):
+    MXFACEDATASET_AVAILABLE = False
+    MXFaceDataset = None
 
 
 def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
@@ -28,9 +37,31 @@ def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
     if data_choose == "recognition":
         batch_size = config.recognition_bz
         root_dir = config.rec
-        dataset_train = MXFaceDataset(root_dir=root_dir, local_rank=local_rank)
+        
+        # Check if MXNet RecordIO format exists
+        rec_file = os.path.join(root_dir, 'train.rec')
+        idx_file = os.path.join(root_dir, 'train.idx')
+        
+        if os.path.exists(rec_file) and os.path.exists(idx_file):
+            # Use MXNet RecordIO format
+            if not MXFACEDATASET_AVAILABLE:
+                raise ImportError("MXNet RecordIO format detected but MXNet is not available. "
+                                "Install MXNet with: pip install mxnet, or use ImageFolder format instead.")
+            dataset_train = MXFaceDataset(root_dir=root_dir, local_rank=local_rank)
+        else:
+            # Use ImageFolder format (each folder is a person/class)
+            print(f"Loading Recognition data from ImageFolder: {root_dir}", flush=True)
+            transform = transforms.Compose([
+                transforms.Resize([config.img_size, config.img_size]),
+                transforms.RandomHorizontalFlip(),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+            ])
+            dataset_train = ImageFolder(root_dir, transform=transform)
+            print(f"Recognition dataset loaded: {len(dataset_train)} images, {len(dataset_train.classes)} classes", flush=True)
 
     if data_choose == "age_gender":
+        print(f"Loading Age/Gender dataset: {config.age_gender_data_list}", flush=True)
         batch_size = config.age_gender_bz
         transform = create_transform(
             input_size=config.img_size,
@@ -47,8 +78,10 @@ def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
             std=[0.5, 0.5, 0.5],
         )
         dataset_train = AgeGenderDataset(config=config, dataset=config.age_gender_data_list, transform=transform)
+        print(f"Age/Gender dataset loaded: {len(dataset_train)} samples", flush=True)
 
     elif data_choose == "CelebA":
+        print("Loading CelebA dataset...", flush=True)
         batch_size = config.CelebA_bz
         transform = create_transform(
             input_size=config.img_size,
@@ -65,8 +98,10 @@ def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
             std=[0.5, 0.5, 0.5],
         )
         dataset_train = CelebADataset(config=config, choose="train", transform=transform)
+        print(f"CelebA dataset loaded: {len(dataset_train)} samples", flush=True)
 
     elif data_choose == "expression":
+        print("Loading Expression (AffectNet) dataset...", flush=True)
         batch_size = config.expression_bz
         transform = create_transform(
             input_size=config.img_size,
@@ -83,6 +118,7 @@ def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
             std=[0.5, 0.5, 0.5],
         )
         dataset_train = ExpressionDataset(config=config, transform=transform)
+        print(f"Expression dataset loaded: {len(dataset_train)} samples", flush=True)
 
     rank, world_size = get_dist_info()
     sampler_train = DistributedSampler(
@@ -112,15 +148,26 @@ def get_mixup_fn(config):
 
 
 def get_analysis_val_dataloader(data_choose, config):
+    try:
+        if data_choose == "CelebA":
+            dataset_val = CelebADataset(config=config, choose="test")
+        elif data_choose == "LAP":
+            dataset_val = LAPDataset(config=config, choose="test")
+        elif data_choose == "FGNet":
+            dataset_val = FGnetDataset(config=config, choose="all")
+        elif data_choose == "RAF":
+            dataset_val = RAFDataset(config=config, choose="test")
+        else:
+            return None
+    except (FileNotFoundError, OSError) as e:
+        if dist.get_rank() == 0:
+            print(f"⚠️  Warning: {data_choose} validation dataset not found, skipping: {e}")
+        return None
 
-    if data_choose == "CelebA":
-        dataset_val = CelebADataset(config=config, choose="test")
-    elif data_choose == "LAP":
-        dataset_val = LAPDataset(config=config, choose="test")
-    elif data_choose == "FGNet":
-        dataset_val = FGnetDataset(config=config, choose="all")
-    elif data_choose == "RAF":
-        dataset_val = RAFDataset(config=config, choose="test")
+    if len(dataset_val) == 0:
+        if dist.get_rank() == 0:
+            print(f"⚠️  Warning: {data_choose} validation dataset is empty, skipping")
+        return None
 
     indices = np.arange(dist.get_rank(), len(dataset_val), dist.get_world_size())
     sampler_val = SubsetRandomSampler(indices)

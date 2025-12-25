@@ -1,9 +1,11 @@
 import argparse
 import logging
 import os
+import multiprocessing
 from itertools import cycle
 import math
 
+import torch
 from torch import distributed
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -21,6 +23,14 @@ from utils.utils_callbacks import CallBackLogging, CallBackVerification
 from utils.utils_config import get_config
 from utils.utils_logging import AverageMeter, init_logging
 from utils.utils_distributed_sampler import setup_seed
+
+# Set multiprocessing start method to 'spawn' to avoid CUDA re-initialization errors
+# This must be done before any CUDA operations or DataLoader creation
+try:
+    multiprocessing.set_start_method('spawn', force=True)
+except RuntimeError:
+    # Start method can only be set once per program, ignore if already set
+    pass
 
 assert torch.__version__ >= "1.9.0", "In order to enjoy the features of the new torch, \
 we have upgraded the torch to 1.9.0. torch before than 1.9.0 may not work in the future."
@@ -47,6 +57,10 @@ def main(args):
     setup_seed(seed=cfg.seed, cuda_deterministic=False)
 
     torch.cuda.set_device(args.local_rank)
+    
+    # Set default device to cuda (but generator should be on CPU)
+    # This must be set after cuda.set_device to ensure correct device
+    torch.set_default_device("cuda")
 
     os.makedirs(cfg.output, exist_ok=True)
     init_logging(rank, cfg.output)
@@ -130,13 +144,23 @@ def main(args):
             margin_loss, cfg.embedding_size, cfg.num_classes,
             cfg.sample_rate, cfg.fp16)
         module_partial_fc.train().cuda()
+        
+        # Collect all parameters and ensure they are on CUDA
+        all_params = []
+        all_params.append({"params": model.module.backbone.parameters(), 'lr': cfg.lr / 10})
+        all_params.append({"params": module_partial_fc.parameters()})
+        all_params.append({"params": model.module.fam.parameters()})
+        all_params.append({"params": model.module.tss.parameters()})
+        all_params.append({"params": model.module.om.parameters()})
+        
+        # Ensure all parameters are on the correct device before creating optimizer
+        for param_group in all_params:
+            for param in param_group['params']:
+                if param.device.type != 'cuda':
+                    param.data = param.data.cuda(args.local_rank)
+        
         opt = torch.optim.AdamW(
-            params=[{"params": model.module.backbone.parameters(), 'lr': cfg.lr / 10},
-                    {"params": module_partial_fc.parameters()},
-                    {"params": model.module.fam.parameters()},
-                    {"params": model.module.tss.parameters()},
-                    {"params": model.module.om.parameters()},
-                    ],
+            params=all_params,
             lr=cfg.lr, weight_decay=cfg.weight_decay)
     else:
         raise
@@ -153,11 +177,18 @@ def main(args):
     global_step = 0
 
     if cfg.init:
-        dict_checkpoint = torch.load(os.path.join(cfg.init_model, f"start_{rank}.pt"))
-        model.module.backbone.load_state_dict(dict_checkpoint["state_dict_backbone"],
-                                              strict=False)  # only load backbone!
-        # module_partial_fc.load_state_dict(dict_checkpoint["state_dict_softmax_fc"])                                  
-        del dict_checkpoint
+        init_model_path = os.path.join(cfg.init_model, f"start_{rank}.pt")
+        if os.path.exists(init_model_path):
+            dict_checkpoint = torch.load(init_model_path)
+            model.module.backbone.load_state_dict(dict_checkpoint["state_dict_backbone"],
+                                                  strict=False)  # only load backbone!
+            # module_partial_fc.load_state_dict(dict_checkpoint["state_dict_softmax_fc"])                                   
+            del dict_checkpoint
+            if rank == 0:
+                print(f"✓ Loaded pretrained model from {init_model_path}")
+        else:
+            if rank == 0:
+                print(f"⚠️  Warning: Pretrained model not found at {init_model_path}, starting from random initialization")
 
     if cfg.resume:
         dict_checkpoint = torch.load(os.path.join(cfg.output, f"checkpoint_step_{cfg.resume_step}_gpu_{rank}.pt"))
@@ -195,10 +226,11 @@ def main(args):
     CelebA_loader = get_analysis_val_dataloader(data_choose="CelebA", config=cfg)
     RAF_loader = get_analysis_val_dataloader(data_choose="RAF", config=cfg)
 
-    FGNet_verification = FGNetVerification(data_loader=FGNet_loader, summary_writer=summary_writer)
-    LAP_verification = LAPVerification(data_loader=LAP_loader, summary_writer=summary_writer)
-    CelebA_verification = CelebAVerification(data_loader=CelebA_loader, summary_writer=summary_writer)
-    RAF_verification = RAFVerification(data_loader=RAF_loader, summary_writer=summary_writer)
+    # Only create verification callbacks if data loaders are available
+    FGNet_verification = FGNetVerification(data_loader=FGNet_loader, summary_writer=summary_writer) if FGNet_loader else None
+    LAP_verification = LAPVerification(data_loader=LAP_loader, summary_writer=summary_writer) if LAP_loader else None
+    CelebA_verification = CelebAVerification(data_loader=CelebA_loader, summary_writer=summary_writer) if CelebA_loader else None
+    RAF_verification = RAFVerification(data_loader=RAF_loader, summary_writer=summary_writer) if RAF_loader else None
 
     callback_logging = CallBackLogging(
         frequent=cfg.frequent,
@@ -334,12 +366,16 @@ def main(args):
                     model.module.set_output_type("Recognition")
                     callback_verification(global_step, model)
                     model.module.set_output_type("Age")
-                    FGNet_verification(global_step, model)
-                    LAP_verification(global_step, model)
+                    if FGNet_verification:
+                        FGNet_verification(global_step, model)
+                    if LAP_verification:
+                        LAP_verification(global_step, model)
                     model.module.set_output_type("Attribute")
-                    CelebA_verification(global_step, model)
+                    if CelebA_verification:
+                        CelebA_verification(global_step, model)
                     model.module.set_output_type("Expression")
-                    RAF_verification(global_step, model)
+                    if RAF_verification:
+                        RAF_verification(global_step, model)
 
             if cfg.save_all_states and (global_step+1) % cfg.save_verbose == 0:
                 checkpoint = {
@@ -394,5 +430,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Distributed Arcface Training in Pytorch")
     parser.add_argument("config", type=str, help="py config file")
-    parser.add_argument("--local_rank", type=int, default=0, help="local_rank")
-    main(parser.parse_args())
+    # Support both --local_rank and --local-rank (for torch.distributed.launch compatibility)
+    parser.add_argument("--local_rank", "--local-rank", type=int, default=None, help="local_rank")
+    args = parser.parse_args()
+    
+    # If local_rank is not provided, try to get it from environment variable
+    # This is the recommended way for newer PyTorch versions
+    if args.local_rank is None:
+        args.local_rank = int(os.environ.get('LOCAL_RANK', 0))
+    
+    main(args)

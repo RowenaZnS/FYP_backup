@@ -1,8 +1,10 @@
 import argparse
 import logging
 import os
+import multiprocessing
 from itertools import cycle
 
+import torch
 from torch import distributed
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -19,6 +21,14 @@ from utils.utils_callbacks import CallBackLogging, CallBackVerification
 from utils.utils_config import get_config
 from utils.utils_logging import AverageMeter, init_logging
 from utils.utils_distributed_sampler import setup_seed
+
+# Set multiprocessing start method to 'spawn' to avoid CUDA re-initialization errors
+# This must be done before any CUDA operations or DataLoader creation
+try:
+    multiprocessing.set_start_method('spawn', force=True)
+except RuntimeError:
+    # Start method can only be set once per program, ignore if already set
+    pass
 
 assert torch.__version__ >= "1.9.0", "In order to enjoy the features of the new torch, \
 we have upgraded the torch to 1.9.0. torch before than 1.9.0 may not work in the future."

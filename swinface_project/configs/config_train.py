@@ -6,23 +6,27 @@ config = edict()
 # -----------------------------------------------------------------------------
 
 # Recognition val targets
-config.val_targets = ['lfw', 'cfp_fp', "agedb_30", 'calfw', 'cplfw']
+# config.val_targets = ['lfw', 'cfp_fp', "agedb_30", 'calfw', 'cplfw']
+config.val_targets =[]
 
 # Recognition data
-config.rec = "<your path>/data/faces_emore/"  #### Path for the training dataset
+config.rec = "/workspace/SwinFace/swinface_project/data/Identity/ms1m-arcface"  #### Path for the training dataset
 config.num_classes = 85742
 config.num_image = 5822653
 
 # Analysis data
-config.age_gender_data_path = "<your path>/data/AIO_train"
-config.age_gender_data_list = ["IMDB", "WIKI", "Adience", "MORPH"]
+# Note: This path should contain imdb_crop/ and wiki_crop/ directories (if available)
+# The code will automatically detect and read from .mat files if available
+config.age_gender_data_path = "/workspace/SwinFace/swinface_project/data/age_gender"
+config.age_gender_data_list = ["IMDB"]  # Only use IMDB dataset (data in imdb_crop directory)
 
-config.CelebA_train_data = "<your path>/data/CelebA/data"
-config.CelebA_train_label = "<your path>/data/AIO_train/CelebA/label.txt"
-config.CelebA_val_data = "<your path>/data/CelebA/data"
-config.CelebA_val_label = "<your path>/data/AIO_val/CelebA/label.txt"
-config.CelebA_test_data = "<your path>/data/CelebA/data"
-config.CelebA_test_label = "<your path>/data/AIO_test/CelebA/label.txt"
+# CelebA data - code will automatically use CSV files if label.txt not found
+config.CelebA_train_data = "/workspace/SwinFace/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba"
+config.CelebA_train_label = "/workspace/SwinFace/swinface_project/dataset/celeba/list_attr_celeba.csv"  # Will use CSV if exists
+config.CelebA_val_data = "/workspace/SwinFace/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba"
+config.CelebA_val_label = "/workspace/SwinFace/swinface_project/dataset/celeba/list_attr_celeba.csv"  # Will use CSV if exists
+config.CelebA_test_data = "/workspace/SwinFace/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba"
+config.CelebA_test_label = "/workspace/SwinFace/swinface_project/dataset/celeba/list_attr_celeba.csv"  # Will use CSV if exists
 
 config.FGnet_data = "<your path>/data/AIO_val/FGnet/data"
 config.FGnet_label = "<your path>/data/AIO_val/FGnet/label.txt"
@@ -30,8 +34,8 @@ config.FGnet_label = "<your path>/data/AIO_val/FGnet/label.txt"
 config.RAF_data = "<your path>/data/RAF"
 config.RAF_label = "<your path>/data/RAF_/basic/list_patition_label.txt"
 
-config.AffectNet_data = "<your path>/data/AffectNet/data"
-config.AffectNet_label = "<your path>/data/AffectNet/label.txt"
+config.AffectNet_data = "/workspace/SwinFace/swinface_project/data/expression/archive (3)/Train"
+config.AffectNet_label = "/workspace/SwinFace/swinface_project/data/expression/archive (3)/labels.csv"
 
 config.LAP_train_data = "<your path>/data/AIO_test/LAP_finetuning/data"
 config.LAP_train_label = "<your path>/data/AIO_test/LAP_finetuning/label.csv"
@@ -118,7 +122,7 @@ config.embedding_size = 512
 # Resume and init
 config.resume = False
 config.resume_step = 0
-config.init = True
+config.init = False  # Set to False if no pretrained model available
 config.init_model = "<your path>/insightface/output/arcface_torch/init/"
 
 # Step num
@@ -162,7 +166,7 @@ config.seed = 2048
 # -----------------------------------------------------------------------------
 
 config.save_all_states = True
-config.output = "<your path>/output" ####Path for Output
+config.output = "/workspace/SwinFace/swinface_project/output" ####Path for Output
 
 config.verbose = 2000
 config.save_verbose = 4000

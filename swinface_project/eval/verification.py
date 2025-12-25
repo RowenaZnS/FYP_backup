@@ -28,12 +28,14 @@ import datetime
 import os
 import pickle
 
-import mxnet as mx
 import numpy as np
 import sklearn
 import torch
-from mxnet import ndarray as nd
 from scipy import interpolate
+
+# MXNet is only needed for load_bin function (image decoding)
+# Import it only when needed to avoid compatibility issues
+# MXNet will be imported lazily in load_bin() function
 from sklearn.decomposition import PCA
 from sklearn.model_selection import KFold
 
@@ -198,6 +200,18 @@ def evaluate(embeddings, actual_issame, nrof_folds=10, pca=0):
 
 @torch.no_grad()
 def load_bin(path, image_size):
+    # Lazy import MXNet only when this function is actually called
+    # This avoids MXNet/NumPy compatibility issues when validation is disabled
+    try:
+        import mxnet as mx
+        from mxnet import ndarray as nd
+    except (ImportError, AttributeError) as e:
+        raise ImportError(
+            "MXNet is required for load_bin function (verification). "
+            "Install it with: pip install mxnet, or disable validation by setting config.val_targets = []. "
+            f"Original error: {e}"
+        )
+    
     try:
         with open(path, 'rb') as f:
             bins, issame_list = pickle.load(f)  # py2

@@ -102,7 +102,7 @@ class DistributedSampler(_DistributedSampler):
     def __iter__(self):
         # deterministically shuffle based on epoch
         if self.shuffle:
-            g = torch.Generator()
+            g = torch.Generator(device='cuda')  # Generator should be on CPU
             # When :attr:`shuffle=True`, this ensures all replicas
             # use a different random ordering for each epoch.
             # Otherwise, the next iteration of this sampler will

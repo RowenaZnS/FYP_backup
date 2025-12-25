@@ -4,7 +4,6 @@ import queue as Queue
 import threading
 from typing import Iterable
 
-import mxnet as mx
 import numpy as np
 import torch
 from functools import partial
@@ -136,6 +135,18 @@ class DataLoaderX(DataLoader):
 class MXFaceDataset(Dataset):
     def __init__(self, root_dir, local_rank):
         super(MXFaceDataset, self).__init__()
+        # Lazy import MXNet only when this class is actually used
+        # This avoids MXNet/NumPy compatibility issues when using ImageFolder format
+        try:
+            import mxnet as mx
+            self.mx = mx  # Save as instance variable for use in __getitem__
+        except (ImportError, AttributeError) as e:
+            raise ImportError(
+                "MXNet is required for MXFaceDataset (RecordIO format). "
+                "Install it with: pip install mxnet, or use ImageFolder format instead. "
+                f"Original error: {e}"
+            )
+        
         self.transform = transforms.Compose(
             [transforms.ToPILImage(),
              transforms.RandomHorizontalFlip(),
@@ -148,9 +159,9 @@ class MXFaceDataset(Dataset):
         
         path_imgrec = os.path.join(root_dir, 'train.rec')
         path_imgidx = os.path.join(root_dir, 'train.idx')
-        self.imgrec = mx.recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
+        self.imgrec = self.mx.recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
         s = self.imgrec.read_idx(0)
-        header, _ = mx.recordio.unpack(s)
+        header, _ = self.mx.recordio.unpack(s)
         if header.flag > 0:
             self.header0 = (int(header.label[0]), int(header.label[1]))
             self.imgidx = np.array(range(1, int(header.label[0])))
@@ -160,12 +171,12 @@ class MXFaceDataset(Dataset):
     def __getitem__(self, index):
         idx = self.imgidx[index]
         s = self.imgrec.read_idx(idx)
-        header, img = mx.recordio.unpack(s)
+        header, img = self.mx.recordio.unpack(s)
         label = header.label
         if not isinstance(label, numbers.Number):
             label = label[0]
         label = torch.tensor(label, dtype=torch.long)
-        sample = mx.image.imdecode(img).asnumpy()
+        sample = self.mx.image.imdecode(img).asnumpy()
         if self.transform is not None:
             sample = self.transform(sample)
         return sample, label

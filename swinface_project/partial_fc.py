@@ -327,11 +327,32 @@ class PartialFCAdamW(torch.nn.Module):
 
         if isinstance(optimizer, (torch.optim.Adam, torch.optim.AdamW)):
             # TODO the params of partial fc must be last in the params list
-            optimizer.state.pop(optimizer.param_groups[-1]["params"][0], None)
-            optimizer.param_groups[-1]["params"][0] = self.weight_activated
-            optimizer.state[self.weight_activated]["exp_avg"] = self.weight_activated_exp_avg
-            optimizer.state[self.weight_activated]["exp_avg_sq"] = self.weight_activated_exp_avg_sq
-            optimizer.state[self.weight_activated]["step"] = self.step
+            last_param_group = optimizer.param_groups[-1]
+            # Check if the param group has any parameters
+            if len(last_param_group["params"]) > 0:
+                # Remove old parameter state if it exists
+                optimizer.state.pop(last_param_group["params"][0], None)
+                # Replace with new activated weight
+                last_param_group["params"][0] = self.weight_activated
+            else:
+                # If param group is empty, add the parameter
+                last_param_group["params"].append(self.weight_activated)
+            
+            # Ensure exp_avg and exp_avg_sq are on the same device as the parameter
+            # Note: dtype should match what optimizer expects (usually float32 for Adam state)
+            param_device = self.weight_activated.device
+            # Clone to ensure we have a separate tensor, and move to correct device
+            # Keep original dtype (usually float32 for optimizer state)
+            exp_avg = self.weight_activated_exp_avg.to(device=param_device).clone()
+            exp_avg_sq = self.weight_activated_exp_avg_sq.to(device=param_device).clone()
+            
+            optimizer.state[self.weight_activated]["exp_avg"] = exp_avg
+            optimizer.state[self.weight_activated]["exp_avg_sq"] = exp_avg_sq
+            # Fix for PyTorch 2.0+: step must be a tensor on CPU (as per error message)
+            if "step" not in optimizer.state[self.weight_activated]:
+                optimizer.state[self.weight_activated]["step"] = torch.tensor(self.step, dtype=torch.long, device='cpu')
+            else:
+                optimizer.state[self.weight_activated]["step"] = optimizer.state[self.weight_activated]["step"].fill_(self.step)
         else:
             raise
 
