@@ -10,14 +10,14 @@ config = edict()
 config.val_targets =[]
 
 # Recognition data
-config.rec = "/workspace/SwinFace/swinface_project/data/Identity/ms1m-arcface"  #### Path for the training dataset
+config.rec = "/workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface"  #### Path for the training dataset
 config.num_classes = 85742
 config.num_image = 5822653
 
 # Analysis data
 # Note: This path should contain imdb_crop/ and wiki_crop/ directories (if available)
 # The code will automatically detect and read from .mat files if available
-config.age_gender_data_path = "/workspace/SwinFace/swinface_project/data/age_gender"
+config.age_gender_data_path = "/workspace/SwinFace/swinface_project/dataset/imdb-wiki"
 config.age_gender_data_list = ["IMDB"]  # Only use IMDB dataset (data in imdb_crop directory)
 
 # CelebA data - code will automatically use CSV files if label.txt not found
@@ -34,8 +34,8 @@ config.FGnet_label = "<your path>/data/AIO_val/FGnet/label.txt"
 config.RAF_data = "<your path>/data/RAF"
 config.RAF_label = "<your path>/data/RAF_/basic/list_patition_label.txt"
 
-config.AffectNet_data = "/workspace/SwinFace/swinface_project/data/expression/archive (3)/Train"
-config.AffectNet_label = "/workspace/SwinFace/swinface_project/data/expression/archive (3)/labels.csv"
+config.AffectNet_data = "/workspace/SwinFace/swinface_project/dataset/affectnet/archive (3)/Train"
+config.AffectNet_label = "/workspace/SwinFace/swinface_project/dataset/affectnet/archive (3)/labels.csv"
 
 config.LAP_train_data = "<your path>/data/AIO_test/LAP_finetuning/data"
 config.LAP_train_label = "<your path>/data/AIO_test/LAP_finetuning/label.csv"
