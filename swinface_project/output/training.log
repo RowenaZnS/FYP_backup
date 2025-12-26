@@ -1,0 +1,297 @@
+Training: 2025-12-26 08:05:24,714-rank_id: 0
+Training: 2025-12-26 08:07:39,207-: val_targets              []
+Training: 2025-12-26 08:07:39,207-: rec                      /workspace/FYP_backup/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+Training: 2025-12-26 08:07:39,207-: num_classes              85742
+Training: 2025-12-26 08:07:39,207-: num_image                5822653
+Training: 2025-12-26 08:07:39,207-: age_gender_data_path     /workspace/FYP_backup/swinface_project/dataset/imdb-wiki
+Training: 2025-12-26 08:07:39,207-: age_gender_data_list     ['IMDB']
+Training: 2025-12-26 08:07:39,207-: CelebA_train_data        /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:07:39,207-: CelebA_train_label       /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:07:39,207-: CelebA_val_data          /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:07:39,207-: CelebA_val_label         /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:07:39,207-: CelebA_test_data         /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:07:39,207-: CelebA_test_label        /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:07:39,207-: FGnet_data               <your path>/data/AIO_val/FGnet/data
+Training: 2025-12-26 08:07:39,207-: FGnet_label              <your path>/data/AIO_val/FGnet/label.txt
+Training: 2025-12-26 08:07:39,208-: RAF_data                 <your path>/data/RAF
+Training: 2025-12-26 08:07:39,208-: RAF_label                <your path>/data/RAF_/basic/list_patition_label.txt
+Training: 2025-12-26 08:07:39,208-: AffectNet_data           /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/Train
+Training: 2025-12-26 08:07:39,208-: AffectNet_label          /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/labels.csv
+Training: 2025-12-26 08:07:39,208-: LAP_train_data           <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:07:39,208-: LAP_train_label          <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:07:39,208-: LAP_test_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:07:39,208-: LAP_test_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:07:39,208-: CLAP_train_data          <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:07:39,208-: CLAP_train_label         <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:07:39,208-: CLAP_val_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:07:39,208-: CLAP_val_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:07:39,208-: CLAP_test_data           <your path>/data/LAP_test/test
+Training: 2025-12-26 08:07:39,208-: CLAP_test_label          <your path>/data/LAP_test/test.csv
+Training: 2025-12-26 08:07:39,208-: img_size                 112
+Training: 2025-12-26 08:07:39,208-: batch_size               128
+Training: 2025-12-26 08:07:39,208-: recognition_bz           32
+Training: 2025-12-26 08:07:39,208-: age_gender_bz            32
+Training: 2025-12-26 08:07:39,208-: CelebA_bz                32
+Training: 2025-12-26 08:07:39,208-: expression_bz            32
+Training: 2025-12-26 08:07:39,208-: train_num_workers        2
+Training: 2025-12-26 08:07:39,208-: train_pin_memory         True
+Training: 2025-12-26 08:07:39,208-: val_batch_size           128
+Training: 2025-12-26 08:07:39,208-: val_num_workers          0
+Training: 2025-12-26 08:07:39,208-: val_pin_memory           True
+Training: 2025-12-26 08:07:39,208-: INTERPOLATION            bicubic
+Training: 2025-12-26 08:07:39,208-: RAF_NUM_CLASSES          7
+Training: 2025-12-26 08:07:39,208-: RAF_LABEL_SMOOTHING      0.1
+Training: 2025-12-26 08:07:39,208-: AUG_COLOR_JITTER         0.4
+Training: 2025-12-26 08:07:39,208-: AUG_AUTO_AUGMENT         rand-m9-mstd0.5-inc1
+Training: 2025-12-26 08:07:39,208-: AUG_REPROB               0.25
+Training: 2025-12-26 08:07:39,208-: AUG_REMODE               pixel
+Training: 2025-12-26 08:07:39,208-: AUG_RECOUNT              1
+Training: 2025-12-26 08:07:39,208-: AUG_MIXUP                0.0
+Training: 2025-12-26 08:07:39,208-: AUG_CUTMIX               0.0
+Training: 2025-12-26 08:07:39,208-: AUG_CUTMIX_MINMAX        None
+Training: 2025-12-26 08:07:39,208-: AUG_MIXUP_PROB           1.0
+Training: 2025-12-26 08:07:39,208-: AUG_MIXUP_SWITCH_PROB    0.5
+Training: 2025-12-26 08:07:39,208-: AUG_MIXUP_MODE           batch
+Training: 2025-12-26 08:07:39,208-: AUG_SCALE_SET            True
+Training: 2025-12-26 08:07:39,208-: AUG_SCALE_SCALE          (1.0, 1.0)
+Training: 2025-12-26 08:07:39,208-: AUG_SCALE_RATIO          (1.0, 1.0)
+Training: 2025-12-26 08:07:39,208-: network                  swin_t
+Training: 2025-12-26 08:07:39,208-: fam_kernel_size          3
+Training: 2025-12-26 08:07:39,208-: fam_in_chans             2112
+Training: 2025-12-26 08:07:39,208-: fam_conv_shared          False
+Training: 2025-12-26 08:07:39,208-: fam_conv_mode            split
+Training: 2025-12-26 08:07:39,208-: fam_channel_attention    CBAM
+Training: 2025-12-26 08:07:39,208-: fam_spatial_attention    None
+Training: 2025-12-26 08:07:39,208-: fam_pooling              max
+Training: 2025-12-26 08:07:39,208-: fam_la_num_list          [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Training: 2025-12-26 08:07:39,208-: fam_feature              all
+Training: 2025-12-26 08:07:39,208-: fam                      3x3_2112_F_s_C_N_max
+Training: 2025-12-26 08:07:39,208-: embedding_size           512
+Training: 2025-12-26 08:07:39,209-: resume                   False
+Training: 2025-12-26 08:07:39,209-: resume_step              0
+Training: 2025-12-26 08:07:39,209-: init                     False
+Training: 2025-12-26 08:07:39,209-: init_model               <your path>/insightface/output/arcface_torch/init/
+Training: 2025-12-26 08:07:39,209-: warmup_step              8000
+Training: 2025-12-26 08:07:39,209-: total_step               80000
+Training: 2025-12-26 08:07:39,209-: optimizer                adamw
+Training: 2025-12-26 08:07:39,209-: lr                       0.0005
+Training: 2025-12-26 08:07:39,209-: weight_decay             0.05
+Training: 2025-12-26 08:07:39,209-: lr_name                  cosine
+Training: 2025-12-26 08:07:39,209-: warmup_lr                5e-07
+Training: 2025-12-26 08:07:39,209-: min_lr                   5e-06
+Training: 2025-12-26 08:07:39,209-: decay_epoch              10
+Training: 2025-12-26 08:07:39,209-: decay_rate               0.1
+Training: 2025-12-26 08:07:39,209-: margin_list              (1.0, 0.0, 0.4)
+Training: 2025-12-26 08:07:39,209-: sample_rate              0.3
+Training: 2025-12-26 08:07:39,209-: interclass_filtering_threshold0
+Training: 2025-12-26 08:07:39,209-: recognition_loss_weight  1.0
+Training: 2025-12-26 08:07:39,209-: analysis_loss_weights    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Training: 2025-12-26 08:07:39,209-: fp16                     True
+Training: 2025-12-26 08:07:39,209-: dali                     False
+Training: 2025-12-26 08:07:39,209-: seed                     2048
+Training: 2025-12-26 08:07:39,209-: save_all_states          True
+Training: 2025-12-26 08:07:39,209-: output                   /workspace/FYP_backup/swinface_project/output
+Training: 2025-12-26 08:07:39,209-: verbose                  2000
+Training: 2025-12-26 08:07:39,209-: save_verbose             4000
+Training: 2025-12-26 08:07:39,209-: frequent                 10
+Training: 2025-12-26 08:07:39,209-: total_batch_size         512
+Training: 2025-12-26 08:07:39,209-: epoch_step               45489
+Training: 2025-12-26 08:07:39,209-: num_epoch                2
+Training: 2025-12-26 08:17:23,780-rank_id: 0
+Training: 2025-12-26 08:19:38,622-: val_targets              []
+Training: 2025-12-26 08:19:38,622-: rec                      /workspace/FYP_backup/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+Training: 2025-12-26 08:19:38,623-: num_classes              85742
+Training: 2025-12-26 08:19:38,623-: num_image                5822653
+Training: 2025-12-26 08:19:38,623-: age_gender_data_path     /workspace/FYP_backup/swinface_project/dataset/imdb-wiki
+Training: 2025-12-26 08:19:38,623-: age_gender_data_list     ['IMDB']
+Training: 2025-12-26 08:19:38,623-: CelebA_train_data        /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:19:38,623-: CelebA_train_label       /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:19:38,623-: CelebA_val_data          /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:19:38,623-: CelebA_val_label         /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:19:38,623-: CelebA_test_data         /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:19:38,623-: CelebA_test_label        /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:19:38,623-: FGnet_data               <your path>/data/AIO_val/FGnet/data
+Training: 2025-12-26 08:19:38,623-: FGnet_label              <your path>/data/AIO_val/FGnet/label.txt
+Training: 2025-12-26 08:19:38,623-: RAF_data                 <your path>/data/RAF
+Training: 2025-12-26 08:19:38,623-: RAF_label                <your path>/data/RAF_/basic/list_patition_label.txt
+Training: 2025-12-26 08:19:38,623-: AffectNet_data           /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/Train
+Training: 2025-12-26 08:19:38,623-: AffectNet_label          /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/labels.csv
+Training: 2025-12-26 08:19:38,623-: LAP_train_data           <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:19:38,623-: LAP_train_label          <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:19:38,623-: LAP_test_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:19:38,623-: LAP_test_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:19:38,623-: CLAP_train_data          <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:19:38,623-: CLAP_train_label         <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:19:38,623-: CLAP_val_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:19:38,623-: CLAP_val_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:19:38,623-: CLAP_test_data           <your path>/data/LAP_test/test
+Training: 2025-12-26 08:19:38,623-: CLAP_test_label          <your path>/data/LAP_test/test.csv
+Training: 2025-12-26 08:19:38,623-: img_size                 112
+Training: 2025-12-26 08:19:38,623-: batch_size               128
+Training: 2025-12-26 08:19:38,623-: recognition_bz           32
+Training: 2025-12-26 08:19:38,623-: age_gender_bz            32
+Training: 2025-12-26 08:19:38,623-: CelebA_bz                32
+Training: 2025-12-26 08:19:38,623-: expression_bz            32
+Training: 2025-12-26 08:19:38,623-: train_num_workers        2
+Training: 2025-12-26 08:19:38,623-: train_pin_memory         True
+Training: 2025-12-26 08:19:38,623-: val_batch_size           128
+Training: 2025-12-26 08:19:38,623-: val_num_workers          0
+Training: 2025-12-26 08:19:38,623-: val_pin_memory           True
+Training: 2025-12-26 08:19:38,623-: INTERPOLATION            bicubic
+Training: 2025-12-26 08:19:38,623-: RAF_NUM_CLASSES          7
+Training: 2025-12-26 08:19:38,623-: RAF_LABEL_SMOOTHING      0.1
+Training: 2025-12-26 08:19:38,623-: AUG_COLOR_JITTER         0.4
+Training: 2025-12-26 08:19:38,623-: AUG_AUTO_AUGMENT         rand-m9-mstd0.5-inc1
+Training: 2025-12-26 08:19:38,623-: AUG_REPROB               0.25
+Training: 2025-12-26 08:19:38,623-: AUG_REMODE               pixel
+Training: 2025-12-26 08:19:38,623-: AUG_RECOUNT              1
+Training: 2025-12-26 08:19:38,623-: AUG_MIXUP                0.0
+Training: 2025-12-26 08:19:38,623-: AUG_CUTMIX               0.0
+Training: 2025-12-26 08:19:38,623-: AUG_CUTMIX_MINMAX        None
+Training: 2025-12-26 08:19:38,623-: AUG_MIXUP_PROB           1.0
+Training: 2025-12-26 08:19:38,623-: AUG_MIXUP_SWITCH_PROB    0.5
+Training: 2025-12-26 08:19:38,623-: AUG_MIXUP_MODE           batch
+Training: 2025-12-26 08:19:38,624-: AUG_SCALE_SET            True
+Training: 2025-12-26 08:19:38,624-: AUG_SCALE_SCALE          (1.0, 1.0)
+Training: 2025-12-26 08:19:38,624-: AUG_SCALE_RATIO          (1.0, 1.0)
+Training: 2025-12-26 08:19:38,624-: network                  swin_t
+Training: 2025-12-26 08:19:38,624-: fam_kernel_size          3
+Training: 2025-12-26 08:19:38,624-: fam_in_chans             2112
+Training: 2025-12-26 08:19:38,624-: fam_conv_shared          False
+Training: 2025-12-26 08:19:38,624-: fam_conv_mode            split
+Training: 2025-12-26 08:19:38,624-: fam_channel_attention    CBAM
+Training: 2025-12-26 08:19:38,624-: fam_spatial_attention    None
+Training: 2025-12-26 08:19:38,624-: fam_pooling              max
+Training: 2025-12-26 08:19:38,624-: fam_la_num_list          [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Training: 2025-12-26 08:19:38,624-: fam_feature              all
+Training: 2025-12-26 08:19:38,624-: fam                      3x3_2112_F_s_C_N_max
+Training: 2025-12-26 08:19:38,624-: embedding_size           512
+Training: 2025-12-26 08:19:38,624-: resume                   False
+Training: 2025-12-26 08:19:38,624-: resume_step              0
+Training: 2025-12-26 08:19:38,624-: init                     False
+Training: 2025-12-26 08:19:38,624-: init_model               <your path>/insightface/output/arcface_torch/init/
+Training: 2025-12-26 08:19:38,624-: warmup_step              8000
+Training: 2025-12-26 08:19:38,624-: total_step               80000
+Training: 2025-12-26 08:19:38,624-: optimizer                adamw
+Training: 2025-12-26 08:19:38,624-: lr                       0.0005
+Training: 2025-12-26 08:19:38,624-: weight_decay             0.05
+Training: 2025-12-26 08:19:38,624-: lr_name                  cosine
+Training: 2025-12-26 08:19:38,624-: warmup_lr                5e-07
+Training: 2025-12-26 08:19:38,624-: min_lr                   5e-06
+Training: 2025-12-26 08:19:38,624-: decay_epoch              10
+Training: 2025-12-26 08:19:38,624-: decay_rate               0.1
+Training: 2025-12-26 08:19:38,624-: margin_list              (1.0, 0.0, 0.4)
+Training: 2025-12-26 08:19:38,624-: sample_rate              0.3
+Training: 2025-12-26 08:19:38,624-: interclass_filtering_threshold0
+Training: 2025-12-26 08:19:38,624-: recognition_loss_weight  1.0
+Training: 2025-12-26 08:19:38,624-: analysis_loss_weights    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Training: 2025-12-26 08:19:38,624-: fp16                     True
+Training: 2025-12-26 08:19:38,624-: dali                     False
+Training: 2025-12-26 08:19:38,624-: seed                     2048
+Training: 2025-12-26 08:19:38,624-: save_all_states          True
+Training: 2025-12-26 08:19:38,624-: output                   /workspace/FYP_backup/swinface_project/output
+Training: 2025-12-26 08:19:38,624-: verbose                  2000
+Training: 2025-12-26 08:19:38,624-: save_verbose             4000
+Training: 2025-12-26 08:19:38,624-: frequent                 10
+Training: 2025-12-26 08:19:38,624-: total_batch_size         512
+Training: 2025-12-26 08:19:38,624-: epoch_step               45489
+Training: 2025-12-26 08:19:38,624-: num_epoch                2
+Training: 2025-12-26 08:30:08,498-rank_id: 0
+Training: 2025-12-26 08:32:27,200-: val_targets              []
+Training: 2025-12-26 08:32:27,200-: rec                      /workspace/FYP_backup/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+Training: 2025-12-26 08:32:27,200-: num_classes              85742
+Training: 2025-12-26 08:32:27,201-: num_image                5822653
+Training: 2025-12-26 08:32:27,201-: age_gender_data_path     /workspace/FYP_backup/swinface_project/dataset/imdb-wiki
+Training: 2025-12-26 08:32:27,201-: age_gender_data_list     ['IMDB']
+Training: 2025-12-26 08:32:27,201-: CelebA_train_data        /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:32:27,201-: CelebA_train_label       /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:32:27,201-: CelebA_val_data          /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:32:27,201-: CelebA_val_label         /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:32:27,201-: CelebA_test_data         /workspace/FYP_backup/swinface_project/dataset/celeba/img_align_celeba/img_align_celeba
+Training: 2025-12-26 08:32:27,201-: CelebA_test_label        /workspace/FYP_backup/swinface_project/dataset/celeba/list_attr_celeba.csv
+Training: 2025-12-26 08:32:27,201-: FGnet_data               <your path>/data/AIO_val/FGnet/data
+Training: 2025-12-26 08:32:27,201-: FGnet_label              <your path>/data/AIO_val/FGnet/label.txt
+Training: 2025-12-26 08:32:27,201-: RAF_data                 <your path>/data/RAF
+Training: 2025-12-26 08:32:27,201-: RAF_label                <your path>/data/RAF_/basic/list_patition_label.txt
+Training: 2025-12-26 08:32:27,201-: AffectNet_data           /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/Train
+Training: 2025-12-26 08:32:27,201-: AffectNet_label          /workspace/FYP_backup/swinface_project/dataset/affectnet/archive (3)/labels.csv
+Training: 2025-12-26 08:32:27,201-: LAP_train_data           <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:32:27,201-: LAP_train_label          <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:32:27,201-: LAP_test_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:32:27,201-: LAP_test_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:32:27,201-: CLAP_train_data          <your path>/data/AIO_test/LAP_finetuning/data
+Training: 2025-12-26 08:32:27,201-: CLAP_train_label         <your path>/data/AIO_test/LAP_finetuning/label.csv
+Training: 2025-12-26 08:32:27,201-: CLAP_val_data            <your path>/data/AIO_test/LAP_test/data
+Training: 2025-12-26 08:32:27,201-: CLAP_val_label           <your path>/data/AIO_test/LAP_test/label.csv
+Training: 2025-12-26 08:32:27,201-: CLAP_test_data           <your path>/data/LAP_test/test
+Training: 2025-12-26 08:32:27,201-: CLAP_test_label          <your path>/data/LAP_test/test.csv
+Training: 2025-12-26 08:32:27,201-: img_size                 112
+Training: 2025-12-26 08:32:27,201-: batch_size               128
+Training: 2025-12-26 08:32:27,201-: recognition_bz           32
+Training: 2025-12-26 08:32:27,201-: age_gender_bz            32
+Training: 2025-12-26 08:32:27,201-: CelebA_bz                32
+Training: 2025-12-26 08:32:27,201-: expression_bz            32
+Training: 2025-12-26 08:32:27,201-: train_num_workers        2
+Training: 2025-12-26 08:32:27,201-: train_pin_memory         True
+Training: 2025-12-26 08:32:27,201-: val_batch_size           128
+Training: 2025-12-26 08:32:27,201-: val_num_workers          0
+Training: 2025-12-26 08:32:27,201-: val_pin_memory           True
+Training: 2025-12-26 08:32:27,201-: INTERPOLATION            bicubic
+Training: 2025-12-26 08:32:27,201-: RAF_NUM_CLASSES          7
+Training: 2025-12-26 08:32:27,201-: RAF_LABEL_SMOOTHING      0.1
+Training: 2025-12-26 08:32:27,201-: AUG_COLOR_JITTER         0.4
+Training: 2025-12-26 08:32:27,201-: AUG_AUTO_AUGMENT         rand-m9-mstd0.5-inc1
+Training: 2025-12-26 08:32:27,201-: AUG_REPROB               0.25
+Training: 2025-12-26 08:32:27,201-: AUG_REMODE               pixel
+Training: 2025-12-26 08:32:27,201-: AUG_RECOUNT              1
+Training: 2025-12-26 08:32:27,201-: AUG_MIXUP                0.0
+Training: 2025-12-26 08:32:27,201-: AUG_CUTMIX               0.0
+Training: 2025-12-26 08:32:27,201-: AUG_CUTMIX_MINMAX        None
+Training: 2025-12-26 08:32:27,201-: AUG_MIXUP_PROB           1.0
+Training: 2025-12-26 08:32:27,201-: AUG_MIXUP_SWITCH_PROB    0.5
+Training: 2025-12-26 08:32:27,201-: AUG_MIXUP_MODE           batch
+Training: 2025-12-26 08:32:27,201-: AUG_SCALE_SET            True
+Training: 2025-12-26 08:32:27,201-: AUG_SCALE_SCALE          (1.0, 1.0)
+Training: 2025-12-26 08:32:27,201-: AUG_SCALE_RATIO          (1.0, 1.0)
+Training: 2025-12-26 08:32:27,201-: network                  swin_t
+Training: 2025-12-26 08:32:27,202-: fam_kernel_size          3
+Training: 2025-12-26 08:32:27,202-: fam_in_chans             2112
+Training: 2025-12-26 08:32:27,202-: fam_conv_shared          False
+Training: 2025-12-26 08:32:27,202-: fam_conv_mode            split
+Training: 2025-12-26 08:32:27,202-: fam_channel_attention    CBAM
+Training: 2025-12-26 08:32:27,202-: fam_spatial_attention    None
+Training: 2025-12-26 08:32:27,202-: fam_pooling              max
+Training: 2025-12-26 08:32:27,202-: fam_la_num_list          [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Training: 2025-12-26 08:32:27,202-: fam_feature              all
+Training: 2025-12-26 08:32:27,202-: fam                      3x3_2112_F_s_C_N_max
+Training: 2025-12-26 08:32:27,202-: embedding_size           512
+Training: 2025-12-26 08:32:27,202-: resume                   False
+Training: 2025-12-26 08:32:27,202-: resume_step              0
+Training: 2025-12-26 08:32:27,202-: init                     False
+Training: 2025-12-26 08:32:27,202-: init_model               <your path>/insightface/output/arcface_torch/init/
+Training: 2025-12-26 08:32:27,202-: warmup_step              8000
+Training: 2025-12-26 08:32:27,202-: total_step               80000
+Training: 2025-12-26 08:32:27,202-: optimizer                adamw
+Training: 2025-12-26 08:32:27,202-: lr                       0.0005
+Training: 2025-12-26 08:32:27,202-: weight_decay             0.05
+Training: 2025-12-26 08:32:27,202-: lr_name                  cosine
+Training: 2025-12-26 08:32:27,202-: warmup_lr                5e-07
+Training: 2025-12-26 08:32:27,202-: min_lr                   5e-06
+Training: 2025-12-26 08:32:27,202-: decay_epoch              10
+Training: 2025-12-26 08:32:27,202-: decay_rate               0.1
+Training: 2025-12-26 08:32:27,202-: margin_list              (1.0, 0.0, 0.4)
+Training: 2025-12-26 08:32:27,202-: sample_rate              0.3
+Training: 2025-12-26 08:32:27,202-: interclass_filtering_threshold0
+Training: 2025-12-26 08:32:27,202-: recognition_loss_weight  1.0
+Training: 2025-12-26 08:32:27,202-: analysis_loss_weights    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Training: 2025-12-26 08:32:27,202-: fp16                     True
+Training: 2025-12-26 08:32:27,202-: dali                     False
+Training: 2025-12-26 08:32:27,202-: seed                     2048
+Training: 2025-12-26 08:32:27,202-: save_all_states          True
+Training: 2025-12-26 08:32:27,202-: output                   /workspace/FYP_backup/swinface_project/output
+Training: 2025-12-26 08:32:27,202-: verbose                  2000
+Training: 2025-12-26 08:32:27,202-: save_verbose             4000
+Training: 2025-12-26 08:32:27,202-: frequent                 10
+Training: 2025-12-26 08:32:27,202-: total_batch_size         512
+Training: 2025-12-26 08:32:27,202-: epoch_step               45489
+Training: 2025-12-26 08:32:27,202-: num_epoch                2

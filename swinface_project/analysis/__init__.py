@@ -31,6 +31,10 @@ except (ImportError, AttributeError):
     MXFACEDATASET_AVAILABLE = False
     MXFaceDataset = None
 
+# Global cache for datasets to avoid reloading on each call
+_dataset_cache = {}
+_dataloader_cache = {}
+
 
 def get_analysis_train_dataloader(data_choose, config, local_rank) -> Iterable:
 

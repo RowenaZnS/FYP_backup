@@ -286,20 +286,20 @@ class PartialFCAdamW(torch.nn.Module):
 
         if self.sample_rate < 1:
             self.register_buffer("weight",
-                tensor=torch.normal(0, 0.01, (self.num_local, embedding_size)))
+                tensor=torch.normal(0, 0.01, (self.num_local, embedding_size)).to(device="cuda"))
             self.register_buffer("weight_exp_avg",
-                tensor=torch.zeros_like(self.weight))
+                tensor=torch.zeros_like(self.weight).to(device="cuda"))
             self.register_buffer("weight_exp_avg_sq",
-                tensor=torch.zeros_like(self.weight))
+                tensor=torch.zeros_like(self.weight).to(device="cuda"))
             self.register_parameter("weight_activated",
-                param=torch.nn.Parameter(torch.empty(0, 0)))
+                param=torch.nn.Parameter(torch.empty(0, 0).to(device="cuda")))
             self.register_buffer("weight_activated_exp_avg",
-                tensor=torch.empty(0, 0))
+                tensor=torch.empty(0, 0).to(device="cuda"))
             self.register_buffer("weight_activated_exp_avg_sq",
-                tensor=torch.empty(0, 0))
+                tensor=torch.empty(0, 0).to(device="cuda"))
         else:
             self.weight_activated = torch.nn.Parameter(
-                torch.normal(0, 0.01, (self.num_local, embedding_size))
+                torch.normal(0, 0.01, (self.num_local, embedding_size)).to(device="cuda")
             )
         self.step = 0
 
@@ -321,9 +321,9 @@ class PartialFCAdamW(torch.nn.Module):
             index = positive
         self.weight_index = index
         labels[index_positive] = torch.searchsorted(index, labels[index_positive])
-        self.weight_activated = torch.nn.Parameter(self.weight[self.weight_index])
-        self.weight_activated_exp_avg = self.weight_exp_avg[self.weight_index]
-        self.weight_activated_exp_avg_sq = self.weight_exp_avg_sq[self.weight_index]
+        self.weight_activated = torch.nn.Parameter(self.weight[self.weight_index].to(device="cuda"))
+        self.weight_activated_exp_avg = self.weight_exp_avg[self.weight_index].to(device="cuda")
+        self.weight_activated_exp_avg_sq = self.weight_exp_avg_sq[self.weight_index].to(device="cuda")
 
         if isinstance(optimizer, (torch.optim.Adam, torch.optim.AdamW)):
             # TODO the params of partial fc must be last in the params list
@@ -331,28 +331,31 @@ class PartialFCAdamW(torch.nn.Module):
             # Check if the param group has any parameters
             if len(last_param_group["params"]) > 0:
                 # Remove old parameter state if it exists
-                optimizer.state.pop(last_param_group["params"][0], None)
+                old_param = last_param_group["params"][0]
+                if old_param in optimizer.state:
+                    optimizer.state.pop(old_param, None)
                 # Replace with new activated weight
                 last_param_group["params"][0] = self.weight_activated
             else:
                 # If param group is empty, add the parameter
                 last_param_group["params"].append(self.weight_activated)
             
-            # Ensure exp_avg and exp_avg_sq are on the same device as the parameter
-            # Note: dtype should match what optimizer expects (usually float32 for Adam state)
-            param_device = self.weight_activated.device
-            # Clone to ensure we have a separate tensor, and move to correct device
-            # Keep original dtype (usually float32 for optimizer state)
-            exp_avg = self.weight_activated_exp_avg.to(device=param_device).clone()
-            exp_avg_sq = self.weight_activated_exp_avg_sq.to(device=param_device).clone()
+            # Ensure exp_avg and exp_avg_sq are on the same device and dtype as the parameter
+            # Note: Optimizer state should be float32 even if parameter is float16
+            # Ensure weight_activated is on CUDA
+            self.weight_activated = self.weight_activated.to(device="cuda")
             
-            optimizer.state[self.weight_activated]["exp_avg"] = exp_avg
-            optimizer.state[self.weight_activated]["exp_avg_sq"] = exp_avg_sq
+            # Get the exp_avg and exp_avg_sq from indexed tensors
+            # Ensure they are on the correct device (CUDA) and dtype (float32 for optimizer state)
+            exp_avg = self.weight_activated_exp_avg.to(device="cuda", dtype=torch.float32).clone().to(device="cuda")
+            exp_avg_sq = self.weight_activated_exp_avg_sq.to(device="cuda", dtype=torch.float32).clone().to(device="cuda")
+            
+            # Initialize optimizer state - ensure all tensors are on CUDA
+            optimizer.state[self.weight_activated] = {}
+            optimizer.state[self.weight_activated]["exp_avg"] = exp_avg.to(device="cuda")
+            optimizer.state[self.weight_activated]["exp_avg_sq"] = exp_avg_sq.to(device="cuda")
             # Fix for PyTorch 2.0+: step must be a tensor on CPU (as per error message)
-            if "step" not in optimizer.state[self.weight_activated]:
-                optimizer.state[self.weight_activated]["step"] = torch.tensor(self.step, dtype=torch.long, device='cpu')
-            else:
-                optimizer.state[self.weight_activated]["step"] = optimizer.state[self.weight_activated]["step"].fill_(self.step)
+            optimizer.state[self.weight_activated]["step"] = torch.tensor(self.step, dtype=torch.long, device='cpu')
         else:
             raise
 
@@ -365,9 +368,9 @@ class PartialFCAdamW(torch.nn.Module):
             return
 
         if self.sample_rate < 1:
-            self.weight[self.weight_index] = self.weight_activated
-            self.weight_exp_avg[self.weight_index] = self.weight_activated_exp_avg
-            self.weight_exp_avg_sq[self.weight_index] = self.weight_activated_exp_avg_sq
+            self.weight[self.weight_index] = self.weight_activated.to(device="cuda")
+            self.weight_exp_avg[self.weight_index] = self.weight_activated_exp_avg.to(device="cuda")
+            self.weight_exp_avg_sq[self.weight_index] = self.weight_activated_exp_avg_sq.to(device="cuda")
 
     def forward(
         self,
