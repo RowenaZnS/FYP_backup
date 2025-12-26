@@ -1,0 +1,158 @@
+/venv/main/lib/python3.12/site-packages/torch/distributed/launch.py:207: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  main()
+W1225 20:57:31.909000 13994 site-packages/torch/distributed/run.py:803] 
+W1225 20:57:31.909000 13994 site-packages/torch/distributed/run.py:803] *****************************************
+W1225 20:57:31.909000 13994 site-packages/torch/distributed/run.py:803] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1225 20:57:31.909000 13994 site-packages/torch/distributed/run.py:803] *****************************************
+/workspace/FYP_backup/swinface_project/dataset.py:242: FutureWarning: Decorating classes is deprecated and will be disabled in future versions. You should only decorate functions or methods. To preserve the current behavior of class decoration, you can directly decorate the `__init__` method and nothing else.
+  @torch.no_grad()
+/workspace/FYP_backup/swinface_project/dataset.py:242: FutureWarning: Decorating classes is deprecated and will be disabled in future versions. You should only decorate functions or methods. To preserve the current behavior of class decoration, you can directly decorate the `__init__` method and nothing else.
+  @torch.no_grad()
+/workspace/FYP_backup/swinface_project/dataset.py:242: FutureWarning: Decorating classes is deprecated and will be disabled in future versions. You should only decorate functions or methods. To preserve the current behavior of class decoration, you can directly decorate the `__init__` method and nothing else.
+  @torch.no_grad()
+/workspace/FYP_backup/swinface_project/dataset.py:242: FutureWarning: Decorating classes is deprecated and will be disabled in future versions. You should only decorate functions or methods. To preserve the current behavior of class decoration, you can directly decorate the `__init__` method and nothing else.
+  @torch.no_grad()
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Loading Recognition data from ImageFolder: /workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/workspace/FYP_backup/swinface_project/train.py", line 442, in <module>
+[rank2]:     main(args)
+[rank2]:   File "/workspace/FYP_backup/swinface_project/train.py", line 85, in main
+[rank2]:     train_loader = get_analysis_train_dataloader("recognition", cfg, args.local_rank)
+[rank2]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/workspace/FYP_backup/swinface_project/analysis/__init__.py", line 60, in get_analysis_train_dataloader
+[rank2]:     dataset_train = ImageFolder(root_dir, transform=transform)
+[rank2]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 328, in __init__
+[rank2]:     super().__init__(
+[rank2]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 149, in __init__
+[rank2]:     classes, class_to_idx = self.find_classes(self.root)
+[rank2]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 234, in find_classes
+[rank2]:     return find_classes(directory)
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 41, in find_classes
+[rank2]:     classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
+[rank2]:                                              ^^^^^^^^^^^^^^^^^^^^^
+[rank2]: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface'
+Loading Recognition data from ImageFolder: /workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+Training: 2025-12-25 20:57:37,590-rank_id: 0
+Loading Recognition data from ImageFolder: /workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+Loading Recognition data from ImageFolder: /workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/workspace/FYP_backup/swinface_project/train.py", line 442, in <module>
+[rank0]:     main(args)
+[rank0]:   File "/workspace/FYP_backup/swinface_project/train.py", line 85, in main
+[rank0]:     train_loader = get_analysis_train_dataloader("recognition", cfg, args.local_rank)
+[rank0]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/workspace/FYP_backup/swinface_project/analysis/__init__.py", line 60, in get_analysis_train_dataloader
+[rank0]:     dataset_train = ImageFolder(root_dir, transform=transform)
+[rank0]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 328, in __init__
+[rank0]:     super().__init__(
+[rank0]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 149, in __init__
+[rank0]:     classes, class_to_idx = self.find_classes(self.root)
+[rank0]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 234, in find_classes
+[rank0]:     return find_classes(directory)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 41, in find_classes
+[rank0]:     classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
+[rank0]:                                              ^^^^^^^^^^^^^^^^^^^^^
+[rank0]: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface'
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/workspace/FYP_backup/swinface_project/train.py", line 442, in <module>
+[rank3]:     main(args)
+[rank3]:   File "/workspace/FYP_backup/swinface_project/train.py", line 85, in main
+[rank3]:     train_loader = get_analysis_train_dataloader("recognition", cfg, args.local_rank)
+[rank3]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/workspace/FYP_backup/swinface_project/analysis/__init__.py", line 60, in get_analysis_train_dataloader
+[rank3]:     dataset_train = ImageFolder(root_dir, transform=transform)
+[rank3]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 328, in __init__
+[rank3]:     super().__init__(
+[rank3]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 149, in __init__
+[rank3]:     classes, class_to_idx = self.find_classes(self.root)
+[rank3]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 234, in find_classes
+[rank3]:     return find_classes(directory)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 41, in find_classes
+[rank3]:     classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
+[rank3]:                                              ^^^^^^^^^^^^^^^^^^^^^
+[rank3]: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface'
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/workspace/FYP_backup/swinface_project/train.py", line 442, in <module>
+[rank1]:     main(args)
+[rank1]:   File "/workspace/FYP_backup/swinface_project/train.py", line 85, in main
+[rank1]:     train_loader = get_analysis_train_dataloader("recognition", cfg, args.local_rank)
+[rank1]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/workspace/FYP_backup/swinface_project/analysis/__init__.py", line 60, in get_analysis_train_dataloader
+[rank1]:     dataset_train = ImageFolder(root_dir, transform=transform)
+[rank1]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 328, in __init__
+[rank1]:     super().__init__(
+[rank1]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 149, in __init__
+[rank1]:     classes, class_to_idx = self.find_classes(self.root)
+[rank1]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 234, in find_classes
+[rank1]:     return find_classes(directory)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/venv/main/lib/python3.12/site-packages/torchvision/datasets/folder.py", line 41, in find_classes
+[rank1]:     classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
+[rank1]:                                              ^^^^^^^^^^^^^^^^^^^^^
+[rank1]: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/SwinFace/swinface_project/dataset/ms1m-arcface/ms1m-arcface'
+[rank0]:[W1225 20:57:38.327794606 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W1225 20:57:38.473000 13994 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 14103 closing signal SIGTERM
+W1225 20:57:38.474000 13994 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 14104 closing signal SIGTERM
+W1225 20:57:38.474000 13994 site-packages/torch/distributed/elastic/multiprocessing/api.py:908] Sending process 14106 closing signal SIGTERM
+E1225 20:57:38.752000 13994 site-packages/torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 2 (pid: 14105) of binary: /venv/main/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/launch.py", line 207, in <module>
+    main()
+  File "/venv/main/lib/python3.12/site-packages/typing_extensions.py", line 3004, in wrapper
+    return arg(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/launch.py", line 203, in main
+    launch(args)
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/launch.py", line 188, in launch
+    run(args)
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/venv/main/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-12-25_20:57:38
+  host      : c0f912f2e57a
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 14105)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

@@ -108,7 +108,7 @@ class CelebAVerification(object):
         self.limited_meter.append(mean_acc)
 
 
-        if self.rank is 0:
+        if self.rank == 0:
             self.summary_writer: SummaryWriter
 
             for j in range(40):
@@ -181,7 +181,7 @@ class FGNetVerification(object):
 
         self.limited_meter.append(error_meter.avg)
 
-        if self.rank is 0:
+        if self.rank == 0:
             self.summary_writer: SummaryWriter
             self.summary_writer.add_scalar(tag="age", scalar_value=error_meter.avg, global_step=global_step)
     
@@ -255,7 +255,7 @@ class LAPVerification(object):
 
         self.limited_meter.append(E_error_meter.avg)
 
-        if self.rank is 0:
+        if self.rank == 0:
             self.summary_writer: SummaryWriter
             self.summary_writer.add_scalar(tag="mae", scalar_value=mae_meter.avg, global_step=global_step)
             self.summary_writer.add_scalar(tag="E error", scalar_value=E_error_meter.avg, global_step=global_step)
@@ -338,7 +338,7 @@ class RAFVerification(object):
 
         self.limited_meter.append(acc1_meter.avg)
         
-        if self.rank is 0:
+        if self.rank == 0:
             self.summary_writer: SummaryWriter
             self.summary_writer.add_scalar(tag="expression loss", scalar_value=loss_meter.avg, global_step=global_step)
             self.summary_writer.add_scalar(tag="expression acc1", scalar_value=acc1_meter.avg, global_step=global_step)
