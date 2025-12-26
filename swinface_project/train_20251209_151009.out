@@ -1,0 +1,86 @@
+/venv/swinface/lib/python3.9/site-packages/torch/_subclasses/functional_tensor.py:279: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:81.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+/venv/swinface/lib/python3.9/site-packages/torch/distributed/launch.py:207: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  main()
+W1209 15:10:11.002388 30265 site-packages/torch/distributed/run.py:774] 
+W1209 15:10:11.002388 30265 site-packages/torch/distributed/run.py:774] *****************************************
+W1209 15:10:11.002388 30265 site-packages/torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1209 15:10:11.002388 30265 site-packages/torch/distributed/run.py:774] *****************************************
+/venv/swinface/lib/python3.9/site-packages/torch/_subclasses/functional_tensor.py:279: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:81.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+/venv/swinface/lib/python3.9/site-packages/torch/_subclasses/functional_tensor.py:279: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:81.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+/venv/swinface/lib/python3.9/site-packages/torch/_subclasses/functional_tensor.py:279: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:81.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+/venv/swinface/lib/python3.9/site-packages/torch/_subclasses/functional_tensor.py:279: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:81.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+Traceback (most recent call last):
+  File "/workspace/SwinFace/swinface_project/train.py", line 9, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+  File "/venv/swinface/lib/python3.9/site-packages/torch/utils/tensorboard/__init__.py", line 1, in <module>
+    import tensorboard
+ModuleNotFoundError: No module named 'tensorboard'
+Traceback (most recent call last):
+  File "/workspace/SwinFace/swinface_project/train.py", line 9, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+  File "/venv/swinface/lib/python3.9/site-packages/torch/utils/tensorboard/__init__.py", line 1, in <module>
+    import tensorboard
+ModuleNotFoundError: No module named 'tensorboard'
+Traceback (most recent call last):
+  File "/workspace/SwinFace/swinface_project/train.py", line 9, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+  File "/venv/swinface/lib/python3.9/site-packages/torch/utils/tensorboard/__init__.py", line 1, in <module>
+    import tensorboard
+ModuleNotFoundError: No module named 'tensorboard'
+Traceback (most recent call last):
+  File "/workspace/SwinFace/swinface_project/train.py", line 9, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+  File "/venv/swinface/lib/python3.9/site-packages/torch/utils/tensorboard/__init__.py", line 1, in <module>
+    import tensorboard
+ModuleNotFoundError: No module named 'tensorboard'
+W1209 15:10:12.266839 30265 site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 30285 closing signal SIGTERM
+W1209 15:10:12.268045 30265 site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 30286 closing signal SIGTERM
+W1209 15:10:12.268414 30265 site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 30287 closing signal SIGTERM
+E1209 15:10:12.300271 30265 site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 30284) of binary: /venv/swinface/bin/python
+Traceback (most recent call last):
+  File "/venv/swinface/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/venv/swinface/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/launch.py", line 207, in <module>
+    main()
+  File "/venv/swinface/lib/python3.9/site-packages/typing_extensions.py", line 3004, in wrapper
+    return arg(*args, **kwargs)
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/launch.py", line 203, in main
+    launch(args)
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/launch.py", line 188, in launch
+    run(args)
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/venv/swinface/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-12-09_15:10:12
+  host      : 17a553e50cc4
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 30284)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
